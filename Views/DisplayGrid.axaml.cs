@@ -1,0 +1,73 @@
+using System;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+
+namespace Opalg.Views;
+
+public partial class DisplayGrid : UserControl
+{
+    public DisplayGrid()
+    {
+        InitializeComponent();
+    }
+
+    public void SetColors(Color[,] colors, int size)
+    {
+        if (colors == null) throw new ArgumentNullException(nameof(colors));
+
+        int rows = colors.GetLength(0);
+        int cols = colors.GetLength(1);
+
+        for (int r = 0; r < rows; r++)
+        {
+            SquareGrid.RowDefinitions.Add(new RowDefinition(new GridLength(size - 1)));
+        }
+
+        for (int c = 0; c < cols; c++)
+        {
+            SquareGrid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(size - 1)));
+        }
+
+        // Add cells
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                Border border = new Border
+                {
+                    Width = size,
+                    Height = size,
+                    Background = new SolidColorBrush(colors[r, c]),
+                    // CornerRadius = new CornerRadius(0),
+                    // Margin = new Thickness(0)
+                };
+
+                Grid.SetRow(border, r);
+                Grid.SetColumn(border, c);
+                SquareGrid.Children.Add(border);
+            }
+        }
+
+    }
+
+    public void SetColorsFromHex(string[][] hexRows, int size = 40)
+    {
+        if (hexRows == null) throw new ArgumentNullException(nameof(hexRows));
+
+        int rows = hexRows.Length;
+        int cols = rows > 0 ? hexRows[0].Length : 0;
+        var arr = new Color[rows, cols];
+
+        for (int r = 0; r < rows; r++)
+        {
+            if (hexRows[r].Length != cols) throw new ArgumentException("All rows must have same length");
+            for (int c = 0; c < cols; c++)
+            {
+                arr[r, c] = Color.Parse(hexRows[r][c]);
+            }
+        }
+        SetColors(arr, size);
+    }
+}

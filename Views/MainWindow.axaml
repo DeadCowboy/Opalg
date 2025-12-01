@@ -15,7 +15,7 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <StackPanel>
+    <StackPanel x:Name="MainStack">
         <Border Margin="5"  CornerRadius="10" Background="LightBlue">
             <TextBlock Margin="5" FontSize="40" HorizontalAlignment="Center" Text="Optimierungsalgorithmen"> </TextBlock>
         </Border>

@@ -27,6 +27,9 @@ public partial class MainWindow : Window
                 );
             }
         }
-        ColorGrid.SetColors(colors, 100);
+        ColorGrid.SetColors(colors, 30);
+
+        // DisplayGrid secondGrid = new DisplayGrid(colors, 80);
+        // MainStack.Children.Add(secondGrid);
     }
 }

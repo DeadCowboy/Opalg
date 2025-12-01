@@ -72,3 +72,4 @@
 /home/lkammeyer/Documents/Uni/OptAlg/OpalAvalonia/Opalg/obj/Debug/net9.0/Opalg.pdb
 /home/lkammeyer/Documents/Uni/OptAlg/OpalAvalonia/Opalg/obj/Debug/net9.0/Opalg.genruntimeconfig.cache
 /home/lkammeyer/Documents/Uni/OptAlg/OpalAvalonia/Opalg/obj/Debug/net9.0/ref/Opalg.dll
+/home/lkammeyer/Documents/Uni/OptAlg/OpalAvalonia/Opalg/obj/Debug/net9.0/Opalg.sourcelink.json

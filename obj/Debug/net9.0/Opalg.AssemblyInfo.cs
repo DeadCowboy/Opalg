@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Opalg")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a99c9c9d228746e8116c2508b1e6889c848a321")]
 [assembly: System.Reflection.AssemblyProductAttribute("Opalg")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Opalg")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

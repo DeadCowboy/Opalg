@@ -1,15 +1,15 @@
 namespace Opalg.Models;
 
-interface IOptimizer
+interface IOptimizer<T>
 {
-    public Solution Optimize(Problem problem, INeighbourhood neighbourhood);
+    public T Optimize(Problem problem, INeighbourhood<T> neighbourhood);
 }
 
-class NaiveLocalSearch : IOptimizer
+class NaiveLocalSearch : IOptimizer<T>
 {
-    public Solution Optimize(Problem problem, INeighbourhood neighbourhood)
+    public T Optimize(Problem problem, INeighbourhood<T> neighbourhood)
     {
-        Solution sNew = neighbourhood.sample();
+        T sNew = neighbourhood.Sample();
     }
 }
 

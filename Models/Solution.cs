@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Reflection.Metadata.Ecma335;
-using Opalg.Models;
+
+namespace Opalg.Models;
 
 interface ISolution
 {

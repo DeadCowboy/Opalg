@@ -44,6 +44,17 @@ class Box(int size)
         this.rectangles.AddFirst(newRect);
     }
 
+    public double FillLevel()
+    {
+        int occupiedCellCount = 0;
+        foreach (PositionedRect rect in this.rectangles)
+        {
+            occupiedCellCount += rect.Width * rect.Height;
+        }
+
+        return occupiedCellCount / (this.size * this.size);
+    }
+
     public bool[,] GenDenseGrid()
     {
         bool[,] denseGrid = new bool[size, size];

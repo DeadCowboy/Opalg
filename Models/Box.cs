@@ -13,6 +13,16 @@ class Box(int size)
         this.rectangles = rectangles;
     }
 
+    public Box Clone()
+    {
+        Box newBox = new(this.size);
+        foreach (PositionedRect rect in this.rectangles)
+        {
+            newBox.rectangles.AddLast(rect.Clone());
+        }
+        return newBox;
+    }
+
     public PositionedRect Detach(int index)
     {
         PositionedRect toDetach;

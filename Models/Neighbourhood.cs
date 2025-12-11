@@ -5,7 +5,7 @@ namespace Opalg.Models;
 
 interface INeighbourhood<T>
 {
-    public bool Sample(T start);
+    public T Sample(T start);
 }
 
 class GeoNeighbourhood : INeighbourhood<GeometricSolution>
@@ -15,40 +15,37 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
     /// </summary>
     public int NumBoxTrys = 5;
     private readonly Random rnd = new();
-    public bool Sample(GeometricSolution start)
+    public GeometricSolution Sample(GeometricSolution start)
     {
-        // Select rectangle
-        Box randomStartBox = start.Boxes[rnd.Next(start.Boxes.Count)];
-        PositionedRect randomRect = randomStartBox.Detach(rnd.Next(randomStartBox.rectangles.Count));
+        // Deep Clone Solution
+        GeometricSolution clonedSolution = new GeometricSolution(start);
 
-        // Safe rect Position
-        PositionState startState = randomRect.GetState();
+        // Select rectangle to be moved
+        Box box = clonedSolution.Boxes[rnd.Next(clonedSolution.Boxes.Count)];
+        PositionedRect rect = box.Detach(rnd.Next(box.rectangles.Count));
 
+        // Rotate rectangle randomly
+        if (rnd.NextDouble() < 0.5) rect.isRotated = !rect.isRotated;
 
-        // Rotate?
-        if (rnd.NextDouble() < 0.5) randomRect.isRotated = !randomRect.isRotated;
-
-        // Select random box
-        Box trialBox = start.Boxes[rnd.Next(start.Boxes.Count)];
-
-        // Reset Position of rect to zeros
-        randomRect.ZeroOutPos();
+        // Select random box to place rectangle in
+        Box trialBox = clonedSolution.Boxes[rnd.Next(clonedSolution.Boxes.Count)];
 
         // Place in Box if possible
         bool wasPlaced = false;
         bool[,] denseGrid = trialBox.GenDenseGrid();
+        rect.ZeroOutPos();     // Reset Position of rect to zero zero
 
         for (int i = 0; i < this.NumBoxTrys; i++)
         {
-            for (int x = 0; x + randomRect.Width <= trialBox.size; x++)
+            for (int x = 0; x + rect.Width <= trialBox.size; x++)
             {
-                randomRect.MoveRight();
-                for (int y = 0; y + randomRect.Height <= trialBox.size; y++)
+                rect.MoveRight();
+                for (int y = 0; y + rect.Height <= trialBox.size; y++)
                 {
-                    randomRect.MoveUp();
-                    if (fits(denseGrid, randomRect))
+                    rect.MoveUp();
+                    if (fits(denseGrid, rect))
                     {
-                        trialBox.Attach(randomRect);
+                        trialBox.Attach(rect);
                         wasPlaced = true;
                         break;
                     }
@@ -56,15 +53,9 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
             }
         }
 
-        if (!wasPlaced)
-        {
-            randomRect.SetState(startState);
-            randomStartBox.Attach(randomRect);
-        }
+        return wasPlaced ? clonedSolution : start;
 
-        return wasPlaced;
-
-        // Rotate if not possible?
+        // Rotate if not possible? Skip for now
 
         bool fits(bool[,] grid, PositionedRect rect)
         {
@@ -80,12 +71,11 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
         }
 
     }
-
 }
 
 class RuleNeighbourhood : INeighbourhood<RuleSolution>
 {
-    public bool Sample(RuleSolution start)
+    public RuleSolution Sample(RuleSolution start)
     {
         throw new NotImplementedException();
     }
@@ -93,7 +83,7 @@ class RuleNeighbourhood : INeighbourhood<RuleSolution>
 
 class OverlapNeighbourhood : INeighbourhood<OverlappingSolution>
 {
-    public bool Sample(OverlappingSolution start)
+    public OverlappingSolution Sample(OverlappingSolution start)
     {
         throw new NotImplementedException();
     }

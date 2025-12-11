@@ -1,27 +1,47 @@
+using System;
+
 namespace Opalg.Models;
 
-interface IOptimizer<T>
+interface IOptimizer<SolutionType>
 {
-    public T Optimize(Problem problem, INeighbourhood<T> neighbourhood);
+    public SolutionType Optimize(SolutionType initial, INeighbourhood<SolutionType> neighbourhood);
 }
 
-class NaiveLocalSearch : IOptimizer<T>
+class NaiveLocalSearch<SolutionType> : IOptimizer<SolutionType> where SolutionType : ISolution
 {
-    public T Optimize(Problem problem, INeighbourhood<T> neighbourhood)
+    public int explorationLimit = 4000;
+    public SolutionType Optimize(SolutionType initial, INeighbourhood<SolutionType> neighbourhood)
     {
-        T sNew = neighbourhood.Sample();
+        if (initial == null) throw new ArgumentException("Starting Solution for optimizer was null");
+
+        SolutionType currentSolution = initial;
+        SolutionType bestSolution = initial;
+        double bestCost = initial.Cost();
+        for (int i = 0; i < explorationLimit; i++)
+        {
+            SolutionType newSolution = neighbourhood.Sample(currentSolution);
+            if (newSolution.Cost() < bestCost)
+            {
+                bestSolution = newSolution;
+                bestCost = newSolution.Cost();
+            }
+        }
+        return bestSolution;
     }
 }
 
-class SimulatedAnneling : IOptimizer
+class SimulatedAnneling<SolutionType> : IOptimizer<SolutionType>
 {
-    public Solution Optimize(Problem problem, INeighbourhood neighbourhood)
+    public SolutionType Optimize(SolutionType problem, INeighbourhood<SolutionType> neighbourhood)
     {
-        Solution sNew = neighbourhood.sample();
+        throw new System.NotImplementedException();
     }
 }
 
-class GreedySearch : IOptimizer
+class GreedySearch<SolutionType> : IOptimizer<SolutionType>
 {
-
+    public SolutionType Optimize(SolutionType problem, INeighbourhood<SolutionType> neighbourhood)
+    {
+        throw new System.NotImplementedException();
+    }
 }

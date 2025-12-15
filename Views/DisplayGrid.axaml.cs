@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Opalg.Models;
 
 namespace Opalg.Views;
 
@@ -11,13 +12,6 @@ public partial class DisplayGrid : UserControl
     public DisplayGrid()
     {
         InitializeComponent();
-    }
-
-    public DisplayGrid(Color[,] colors, int size)
-    {
-        InitializeComponent();
-        SetColors(colors, size);
-
     }
 
     public void SetColors(Color[,] colors, int size)
@@ -52,6 +46,7 @@ public partial class DisplayGrid : UserControl
             Grid.SetColumn(label, 0);
             SquareGrid.Children.Add(label);
 
+            // Fill Grid cells with colored borders
             for (int c = 1; c < cols + 1; c++)
             {
                 Border border = new Border
@@ -101,5 +96,22 @@ public partial class DisplayGrid : UserControl
             }
         }
         SetColors(arr, size);
+    }
+
+    public void ShowBox(Box box)
+    {
+        var rng = new Random();
+        Color[,] colors = new Color[box.size, box.size];
+        foreach (PositionedRect rect in box.rectangles)
+        {
+            Color rndColor = Color.FromRgb(
+                (byte)rng.Next(256),
+                (byte)rng.Next(256),
+                (byte)rng.Next(256)
+            );
+            rect.ForEachPosition((x, y) => colors[x, y] = rndColor);
+        }
+        SetColors(colors, box.size);
+
     }
 }

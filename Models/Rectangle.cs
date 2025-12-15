@@ -1,19 +1,21 @@
+using System;
+
 namespace Opalg.Models;
 
-readonly struct Rectangle(int Width, int Height)
+public readonly struct Rectangle(int Width, int Height)
 {
     public readonly int Height = Height;
     public readonly int Width = Width;
 }
 
-record PositionState(int xCoord, int yCoord, bool isRotated)
+public record PositionState(int xCoord, int yCoord, bool isRotated)
 {
     public int xCoord = xCoord;
     public int yCoord = yCoord;
     public bool isRotated = isRotated;
 }
 
-class PositionedRect(Rectangle rectangle, int xCoord, int yCoord, bool isRotated)
+public class PositionedRect(Rectangle rectangle, int xCoord, int yCoord, bool isRotated)
 {
     public Rectangle rectangle = rectangle;
 
@@ -36,6 +38,17 @@ class PositionedRect(Rectangle rectangle, int xCoord, int yCoord, bool isRotated
     public PositionState GetState()
     {
         return new PositionState(this.xCoord, this.yCoord, this.isRotated);
+    }
+
+    public void ForEachPosition(Action<int, int> act)
+    {
+        for (int x = this.xCoord; x < this.xCoord + this.rectangle.Width; x++)
+        {
+            for (int y = this.yCoord; y < this.yCoord + this.rectangle.Height; y++)
+            {
+                act(x, y);
+            }
+        }
     }
 
     public void SetState(PositionState state)

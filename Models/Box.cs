@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Avalonia;
 
 namespace Opalg.Models;
 
-class Box(int size)
+public class Box(int size)
 {
     readonly public int size = size;
     public LinkedList<PositionedRect> rectangles = [];
@@ -68,25 +69,24 @@ class Box(int size)
     public bool[,] GenDenseGrid()
     {
         bool[,] denseGrid = new bool[size, size];
-
         foreach (PositionedRect item in rectangles)
         {
-            setCoveredCells(item);
+            // setCoveredCells(item);
+            item.ForEachPosition((x, y) => denseGrid[x, y] = true);
         }
-
         return denseGrid;
 
 
-        void setCoveredCells(PositionedRect rect)
-        {
-            for (int x = rect.xCoord; x < rect.xCoord + rect.rectangle.Width; x++)
-            {
-                for (int y = rect.yCoord; y < rect.yCoord + rect.rectangle.Height; y++)
-                {
-                    denseGrid[x, y] = true;
-                }
-            }
-        }
+        // void setCoveredCells(PositionedRect rect)
+        // {
+        //     for (int x = rect.xCoord; x < rect.xCoord + rect.rectangle.Width; x++)
+        //     {
+        //         for (int y = rect.yCoord; y < rect.yCoord + rect.rectangle.Height; y++)
+        //         {
+        //             denseGrid[x, y] = true;
+        //         }
+        //     }
+        // }
     }
 
 }

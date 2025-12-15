@@ -2,12 +2,13 @@ using System.Collections.Generic;
 
 namespace Opalg.Models;
 
-interface ISolution
+public interface ISolution
 {
+    public List<Box> Boxes { get; set; }
     public double Cost();
 }
 
-class GeometricSolution : ISolution
+public class GeometricSolution : ISolution
 {
     /// <summary>
     /// Clone Constructor
@@ -21,14 +22,16 @@ class GeometricSolution : ISolution
         {
             newBoxList.Add(box.Clone());
         }
-        this.Boxes = newBoxList;
+        this._boxes = newBoxList;
     }
 
     public GeometricSolution(List<Box> Boxes)
     {
-        this.Boxes = Boxes;
+        this._boxes = Boxes;
     }
-    public List<Box> Boxes;
+
+    private List<Box> _boxes;
+    public List<Box> Boxes { get => _boxes; set => _boxes = value; }
     double ISolution.Cost()
     {
         throw new System.NotImplementedException();
@@ -36,16 +39,28 @@ class GeometricSolution : ISolution
 
 }
 
-class RuleSolution : ISolution
+public class RuleSolution : ISolution
 {
+    public RuleSolution(List<Box> Boxes)
+    {
+        this._boxes = Boxes;
+    }
+    private List<Box> _boxes;
+    public List<Box> Boxes { get => _boxes; set => _boxes = value; }
     public double Cost()
     {
         throw new System.NotImplementedException();
     }
 }
 
-class OverlappingSolution : ISolution
+public class OverlappingSolution : ISolution
 {
+    public OverlappingSolution(List<Box> Boxes)
+    {
+        this._boxes = Boxes;
+    }
+    private List<Box> _boxes;
+    public List<Box> Boxes { get => _boxes; set => _boxes = value; }
     public double Cost()
     {
         throw new System.NotImplementedException();

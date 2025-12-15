@@ -9,7 +9,7 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Opalg"
-        Width="1200" Height="1200">
+        Width="800" Height="800">
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
@@ -20,7 +20,8 @@
             <TextBlock Margin="5" FontSize="40" HorizontalAlignment="Center" Text="Optimierungsalgorithmen"> </TextBlock>
         </Border>
 
-    <c:DisplayGrid HorizontalAlignment="Center" x:Name="ColorGrid" />
+        <!-- <c:DisplayGrid HorizontalAlignment="Center" x:Name="ColorGrid" /> -->
+        <Grid x:Name="SolutionGrid"/>
     </StackPanel>
 
 

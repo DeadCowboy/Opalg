@@ -19,6 +19,13 @@
         <Border Margin="5"  CornerRadius="10" Background="LightBlue">
             <TextBlock Margin="5" FontSize="40" HorizontalAlignment="Center" Text="Optimierungsalgorithmen"> </TextBlock>
         </Border>
+        <Border Margin="5" CornerRadius="10" Background="Violet">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button  FontSize="40" Click="ShowInit"> Show initial solution </Button>
+                <Border Margin="20"></Border>
+                <Button  FontSize="40" Click="Reset"> Reset </Button>
+            </StackPanel>
+        </Border>
 
         <!-- <c:DisplayGrid HorizontalAlignment="Center" x:Name="ColorGrid" /> -->
         <Grid x:Name="SolutionGrid"/>

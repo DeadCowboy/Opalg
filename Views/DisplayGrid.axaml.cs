@@ -111,7 +111,7 @@ public partial class DisplayGrid : UserControl
             );
             rect.ForEachPosition((x, y) => colors[x, y] = rndColor);
         }
-        SetColors(colors, box.size);
+        SetColors(colors, box.size * 10);
 
     }
 }

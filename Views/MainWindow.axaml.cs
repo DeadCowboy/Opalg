@@ -14,10 +14,22 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
+    public void ShowInit(object sender, RoutedEventArgs args)
+    {
+        GeometricSolution initSolution = new GeometricSolution(5, 2, 4, 8);
+        Console.WriteLine(initSolution.Boxes.Count);
+        ShowSolution(initSolution);
+    }
+
+    public void Reset(object sender, RoutedEventArgs args)
+    {
+        SolutionGrid.Children.Clear();
+    }
 
 
     public void ShowSolution<SolutionType>(SolutionType solution) where SolutionType : ISolution
     {
+        Console.WriteLine("Showing");
         int numBoxes = solution.Boxes.Count;
         (int rows, int cols) = NextProductNumber(solution.Boxes.Count);
 
@@ -43,6 +55,9 @@ public partial class MainWindow : Window
                 }
                 Box toBeShown = solution.Boxes[boxIndex];
                 dGrid.ShowBox(toBeShown);
+                Grid.SetRow(dGrid, r);
+                Grid.SetColumn(dGrid, c);
+                SolutionGrid.Children.Add(dGrid);
             }
         }
     }

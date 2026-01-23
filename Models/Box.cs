@@ -55,15 +55,28 @@ public class Box(int size)
         this.rectangles.AddFirst(newRect);
     }
 
-    public double FillLevel()
+    /// <summary>
+    /// Gives the percentage to which a box is filled (used area over total area)
+    /// </summary>
+    /// <returns>double occupiedPercent</returns>
+    public double Fillgrade()
     {
         int occupiedCellCount = 0;
         foreach (PositionedRect rect in this.rectangles)
         {
-            occupiedCellCount += rect.Width * rect.Height;
+            occupiedCellCount += rect.Area;
         }
 
         return occupiedCellCount / (this.size * this.size);
+    }
+
+    public static int CompareByFillgrade(Box first, Box second)
+    {
+        double fillgradeFirst = first.Fillgrade();
+        double fillgradeSecond = second.Fillgrade();
+
+        return fillgradeFirst.CompareTo(fillgradeSecond);
+
     }
 
     public bool[,] GenDenseGrid()

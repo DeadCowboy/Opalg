@@ -37,19 +37,19 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
 
         for (int i = 0; i < this.NumBoxTrys; i++)
         {
-            for (int x = 0; x + rect.Width <= trialBox.size; x++)
+            for (int x = 0; x + rect.Width < trialBox.size && !wasPlaced; x++)
             {
-                rect.MoveRight();
-                for (int y = 0; y + rect.Height <= trialBox.size; y++)
+                for (int y = 0; y + rect.Height < trialBox.size && !wasPlaced; y++)
                 {
-                    rect.MoveUp();
                     if (fits(denseGrid, rect))
                     {
+                        Console.WriteLine("Did Fit!");
                         trialBox.Attach(rect);
                         wasPlaced = true;
-                        break;
                     }
+                    rect.MoveUp();
                 }
+                rect.MoveRight();
             }
         }
 
@@ -59,17 +59,28 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
 
         bool fits(bool[,] grid, PositionedRect rect)
         {
-            bool overlaps = false;
             for (int x = rect.xCoord; x < rect.xCoord + rect.Width; x++)
             {
                 for (int y = rect.yCoord; y < rect.yCoord + rect.Height; y++)
                 {
-                    overlaps |= grid[x, y];
+                    try
+                    {
+                        // Console.WriteLine("Free: " + "X: " + x + "  Y: " + y + "  Widht: " + rect.Width + "  Height: " + rect.Height + "  Size: " + grid.GetLength(0));
+                        if (grid[x, y])
+                        {
+                            return false;
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error: " + "X: " + x + "  Y: " + y + "  Widht: " + rect.Width + "  Height: " + rect.Height + "  Size: " + grid.GetLength(0));
+                        throw e;
+                    }
                 }
             }
-            return !overlaps;
+            return true;
         }
-
     }
 }
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Opalg.Models;
 
@@ -59,10 +61,17 @@ public class GeometricSolution : ISolution
         this._boxes = boxes;
     }
 
-    public double Cost()
+    public double Cost()  // Try with Gini coefficient instead?
     {
-        throw new System.NotImplementedException();
+        // Integrating the discrete difference
+        // Thats why we carry +C kids
+        List<Box> sortedBoxes = [.. this.Boxes];
+        sortedBoxes.Sort(Box.CompareByFillgrade);
+        // Idea: Square to incentivice concentration at the high end
+        double inequality = sortedBoxes.Zip(sortedBoxes.Skip(1), (first, second) => second.Fillgrade() - first.Fillgrade()).Sum(); // Larger value is better
+        return 1 - inequality;
     }
+
 }
 
 public class RuleSolution : ISolution

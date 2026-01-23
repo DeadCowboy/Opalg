@@ -14,6 +14,8 @@ public partial class DisplayGrid : UserControl
         InitializeComponent();
     }
 
+    public Label identifyer;
+
     public void SetColors(Color[,] colors, int size)
     {
         if (colors == null) throw new ArgumentNullException(nameof(colors));
@@ -32,48 +34,53 @@ public partial class DisplayGrid : UserControl
         }
 
         // Add cells
-        for (int r = 0; r < rows; r++)
+        for (int y = 0; y < rows; y++)
         {
             // Add Row Label at start of Row
             Label label = new Label
             {
-                Content = rows - r,
+                Content = rows - y - 1,
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
                 FontSize = size / 2,
             };
-            Grid.SetRow(label, r);
+            Grid.SetRow(label, y);
             Grid.SetColumn(label, 0);
             SquareGrid.Children.Add(label);
 
             // Fill Grid cells with colored borders
-            for (int c = 1; c < cols + 1; c++)
+            for (int x = 1; x < cols + 1; x++)
             {
                 Border border = new Border
                 {
                     Width = size,
                     Height = size,
-                    Background = new SolidColorBrush(colors[r, c - 1]),
+                    Background = new SolidColorBrush(colors[x - 1, y]),
                 };
 
-                Grid.SetRow(border, r);
-                Grid.SetColumn(border, c);
+                Grid.SetRow(border, rows - y - 1); // Invert in grid display to put 0.0 at bottom left
+                Grid.SetColumn(border, x);
                 SquareGrid.Children.Add(border);
             }
         }
 
         // Add Column Label at bottom
-        for (int c = 0; c < cols + 1; c++)
+        for (int x = 0; x < cols + 1; x++)
         {
             Label label = new Label
             {
-                Content = c,
+                Content = x == 0 ? "" : x - 1,
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
                 FontSize = size / 2,
             };
+            if (x == 0)
+            {
+                this.identifyer = label;
+                this.identifyer.Foreground = new SolidColorBrush(Color.FromRgb(0x78, 0x06, 0x06));
+            }
             Grid.SetRow(label, rows + 1);
-            Grid.SetColumn(label, c);
+            Grid.SetColumn(label, x);
             SquareGrid.Children.Add(label);
         }
 

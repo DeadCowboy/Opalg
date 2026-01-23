@@ -6,6 +6,8 @@ public readonly struct Rectangle(int Width, int Height)
 {
     public readonly int Height = Height;
     public readonly int Width = Width;
+
+    public int Area => Width * Height;
 }
 
 public record PositionState(int xCoord, int yCoord, bool isRotated)
@@ -28,7 +30,7 @@ public class PositionedRect(Rectangle rectangle, int xCoord, int yCoord, bool is
 
     public int Height => this.isRotated ? this.rectangle.Width : this.rectangle.Height;
     public int Width => this.isRotated ? this.rectangle.Height : this.rectangle.Width;
-
+    public int Area => rectangle.Area;
 
     public PositionedRect Clone()
     {

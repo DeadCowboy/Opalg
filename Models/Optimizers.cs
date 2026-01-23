@@ -10,7 +10,7 @@ interface IOptimizer<SolutionType>
 class NaiveLocalSearch<SolutionType> : IOptimizer<SolutionType> where SolutionType : ISolution
 {
     public int explorationLimit = 4000;
-    public SolutionType Optimize(SolutionType initial, INeighbourhood<SolutionType> neighbourhood)
+    public SolutionType Optimize(SolutionType? initial, INeighbourhood<SolutionType> neighbourhood)
     {
         if (initial == null) throw new ArgumentException("Starting Solution for optimizer was null");
 

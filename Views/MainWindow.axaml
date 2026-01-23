@@ -21,9 +21,10 @@
         </Border>
         <Border Margin="5" CornerRadius="10" Background="Violet">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button  FontSize="40" Click="ShowInit"> Show initial solution </Button>
+                <Button  FontSize="40" Click="Init"> Show initial solution </Button>
                 <Border Margin="20"></Border>
                 <Button  FontSize="40" Click="Reset"> Reset </Button>
+                <Button  FontSize="40" Click="Optimize"> Optimize </Button>
             </StackPanel>
         </Border>
 

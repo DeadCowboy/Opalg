@@ -27,16 +27,18 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
         // Rotate rectangle randomly
         if (rnd.NextDouble() < 0.5) rect.isRotated = !rect.isRotated;
 
-        // Select random box to place rectangle in
-        Box trialBox = clonedSolution.Boxes[rnd.Next(clonedSolution.Boxes.Count)];
 
         // Place in Box if possible
         bool wasPlaced = false;
-        bool[,] denseGrid = trialBox.GenDenseGrid();
-        rect.ZeroOutPos();     // Reset Position of rect to zero zero
 
         for (int i = 0; i < this.NumBoxTrys; i++)
         {
+
+            // Select random box to place rectangle in
+            Box trialBox = clonedSolution.Boxes[rnd.Next(clonedSolution.Boxes.Count)];
+            bool[,] denseGrid = trialBox.GenDenseGrid();
+            rect.ZeroOutPos();     // Reset Position of rect to zero zero
+
             for (int x = 0; x + rect.Width < trialBox.size && !wasPlaced; x++)
             {
                 for (int y = 0; y + rect.Height < trialBox.size && !wasPlaced; y++)

@@ -28,26 +28,23 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
         if (rnd.NextDouble() < 0.5) rect.isRotated = !rect.isRotated;
 
 
-        // Place in Box if possible
-        bool wasPlaced = false;
-
+        // Place in Box if possible. Try NumBoxTrys times
         for (int i = 0; i < this.NumBoxTrys; i++)
         {
-
             // Select random box to place rectangle in
             Box trialBox = clonedSolution.Boxes[rnd.Next(clonedSolution.Boxes.Count)];
             bool[,] denseGrid = trialBox.GenDenseGrid();
             rect.ZeroOutPos();     // Reset Position of rect to zero zero
 
-            for (int x = 0; x + rect.Width < trialBox.size && !wasPlaced; x++)
+            for (int x = 0; x + rect.Width < trialBox.size; x++)
             {
-                for (int y = 0; y + rect.Height < trialBox.size && !wasPlaced; y++)
+                for (int y = 0; y + rect.Height < trialBox.size; y++)
                 {
                     if (fits(denseGrid, rect))
                     {
                         Console.WriteLine("Did Fit!");
                         trialBox.Attach(rect);
-                        wasPlaced = true;
+                        return clonedSolution;
                     }
                     rect.MoveUp();
                 }
@@ -55,7 +52,7 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
             }
         }
 
-        return wasPlaced ? clonedSolution : start;
+        return start;
 
         // Rotate if not possible? Skip for now
 

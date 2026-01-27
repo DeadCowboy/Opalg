@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mc0J4l1Pdug=",
+  "dgSpecHash": "kBQFxcUM+8U=",
   "success": true,
   "projectFilePath": "/home/lkammeyer/Documents/Uni/OptAlg/OpalAvalonia/Opalg/Opalg.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "/home/lkammeyer/.nuget/packages/skiasharp.nativeassets.win32/2.88.9/skiasharp.nativeassets.win32.2.88.9.nupkg.sha512",
     "/home/lkammeyer/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
     "/home/lkammeyer/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512",
-    "/home/lkammeyer/.nuget/packages/microsoft.netcore.app.host.linux-x64/9.0.11/microsoft.netcore.app.host.linux-x64.9.0.11.nupkg.sha512"
+    "/home/lkammeyer/.nuget/packages/microsoft.netcore.app.host.linux-x64/9.0.12/microsoft.netcore.app.host.linux-x64.9.0.12.nupkg.sha512"
   ],
   "logs": []
 }

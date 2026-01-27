@@ -38,6 +38,7 @@ public partial class MainWindow : Window
         GeometricSolution bestSolution = optimizer.Optimize((GeometricSolution)this.currentSolution, neighbourhood);
         this._reset();
         this.ShowSolution(bestSolution);
+        Console.WriteLine("finished optimizing");
     }
 
     public void Reset(object sender, RoutedEventArgs args)

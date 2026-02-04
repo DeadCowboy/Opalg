@@ -56,16 +56,16 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
 
         // Rotate if not possible? Skip for now
 
-        bool fits(bool[,] grid, PositionedRect rect)
+        bool fits(bool[,] grid, PositionedRect rect, int boxIdDebug = -1)
         {
-            for (int x = rect.xCoord; x < rect.xCoord + rect.Width; x++)
+            for (int x_inner = rect.xCoord; x_inner < rect.xCoord + rect.Width; x_inner++)
             {
-                for (int y = rect.yCoord; y < rect.yCoord + rect.Height; y++)
+                for (int y_inner = rect.yCoord; y_inner < rect.yCoord + rect.Height; y_inner++)
                 {
                     try
                     {
                         // Console.WriteLine("Free: " + "X: " + x + "  Y: " + y + "  Widht: " + rect.Width + "  Height: " + rect.Height + "  Size: " + grid.GetLength(0));
-                        if (grid[x, y])
+                        if (grid[x_inner, y_inner])
                         {
                             return false;
                         }
@@ -73,7 +73,13 @@ class GeoNeighbourhood : INeighbourhood<GeometricSolution>
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error: " + "X: " + x + "  Y: " + y + "  Widht: " + rect.Width + "  Height: " + rect.Height + "  Size: " + grid.GetLength(0));
+                        Console.WriteLine("Error: " + "X: "
+                        + x_inner + "  Y: " + y_inner + "  Widht: "
+                        + rect.Width + "  Height: " +
+                        rect.Height + "  IsRotaded: " +
+                        rect.isRotated + "  Size: " +
+                        grid.GetLength(0) + (boxIdDebug >= 0 ? "BoxID: " + boxIdDebug : ""));
+
                         throw e;
                     }
                 }

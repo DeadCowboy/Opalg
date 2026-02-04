@@ -44,9 +44,9 @@ public class PositionedRect(Rectangle rectangle, int xCoord, int yCoord, bool is
 
     public void ForEachPosition(Action<int, int> act)
     {
-        for (int x = this.xCoord; x < this.xCoord + this.rectangle.Width; x++)
+        for (int x = this.xCoord; x < this.xCoord + this.Width; x++)
         {
-            for (int y = this.yCoord; y < this.yCoord + this.rectangle.Height; y++)
+            for (int y = this.yCoord; y < this.yCoord + this.Height; y++)
             {
                 act(x, y);
             }
